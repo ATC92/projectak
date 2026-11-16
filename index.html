@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project AK · Motor 2D en C++20</title>
+  <meta name="description" content="Project AK es un motor gráfico 2D ligero, escrito desde cero en C++ sobre OpenGL 4.6 y SDL3.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ===== Encabezado ===== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#inicio" class="logo" aria-label="Project AK, inicio">
+        <span>PROJECT</span>
+        <span>AK</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#caracteristicas" class="nav__link">Características</a>
+        <a href="#demo" class="nav__link">Demo</a>
+        <a href="#planes" class="nav__link">Planes</a>
+        <a href="#roadmap" class="nav__link">Roadmap</a>
+      </nav>
+      <a href="#planes" class="btn btn--primary btn--sm header__cta">Empieza gratis</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="inicio">
+      <div class="container hero__grid">
+        <div class="hero__text reveal">
+          <span class="badge">v1 · Motor 2D en C++20</span>
+          <h1 class="hero__title">Tu juego 2D, sobre un motor que entiendes por dentro.</h1>
+          <p class="hero__lead">
+            Project AK es un motor gráfico 2D ligero, escrito desde cero en C++ sobre
+            OpenGL 4.6 y SDL3. Mapas ortogonales e isométricos, render por lotes, audio
+            y guardado de partidas listos para usar en Linux y Windows.
+          </p>
+          <div class="hero__actions">
+            <a href="#planes" class="btn btn--primary">Ver planes</a>
+            <a href="#demo" class="btn btn--ghost">Ver demo</a>
+          </div>
+          <ul class="tech">
+            <li>C++20</li>
+            <li>OpenGL 4.6 Core</li>
+            <li>SDL3</li>
+            <li>GLM</li>
+            <li>Linux</li>
+            <li>Windows</li>
+          </ul>
+        </div>
+
+        <figure class="viewport reveal">
+          <svg id="iso-map" class="viewport__svg" viewBox="0 0 400 200" role="img"
+               aria-label="Mapa isométrico con la región visible de la cámara marcada"></svg>
+          <figcaption class="viewport__caption">
+            <span>TileMap · Isometric · 32×16</span>
+            <span>Importado desde Tiled</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== Características ===== -->
+    <section class="section section--alt" id="caracteristicas">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Características</p>
+          <h2 class="section__title">Lo esencial para un juego 2D, sin capas que no necesitas.</h2>
+          <p class="section__lead">Cada sistema tiene un dueño claro y una sola responsabilidad. Sabes qué hace tu motor en cada cuadro.</p>
+        </header>
+
+        <div class="features">
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <h3>Render por lotes</h3>
+            <p>Sprite batching sobre arreglos de texturas (GL_TEXTURE_2D_ARRAY): agrupa sprites, atlas y animaciones en pocas llamadas de dibujo, compatible con OpenGL 4.6.</p>
+          </article>
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            <h3>Mapas de Tiled</h3>
+            <p>Importa mapas JSON de Tiled por capas, en vista ortogonal o isométrica. Solo se dibujan las celdas que ve la cámara, y la capa de colisión funciona desde el primer día.</p>
+          </article>
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
+            <h3>Audio listo</h3>
+            <p>Integración con SDL_mixer 3: un pool dinámico de efectos de sonido que reutiliza voces cuando se llena, y un gestor de música aparte.</p>
+          </article>
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="m10 8 5 3-5 3V8Z"/><path d="M8 21h8"/></svg>
+            <h3>Escenas y objetos</h3>
+            <p>Gestor de escenas con cambio diferido, cámara 2D por escena y un pool de objetos con IDs generacionales para crear y destruir entidades sin fugas.</p>
+          </article>
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+            <h3>Guardado versionado</h3>
+            <p>Partidas por slots con archivos binarios .dak separados (mapa, jugador…). Cada archivo trae su versión y migra solo de v0 a v1 a v2 cuando actualizas tu juego.</p>
+          </article>
+          <article class="card feature reveal">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/></svg>
+            <h3>Multiplataforma</h3>
+            <p>C++20, CMake y SDL3. Se compila en Linux y Windows, y cada cambio se prueba en CI con GCC, Clang y MSVC.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Demo ===== -->
+    <section class="section" id="demo">
+      <div class="container demo">
+        <div class="reveal">
+          <p class="eyebrow">Demo</p>
+          <h2 class="section__title">De cero a tu primer mapa en tres pasos.</h2>
+          <ol class="steps">
+            <li><span class="steps__num">1</span><p>Agrégalo a tu proyecto con CMake. Las dependencias (SDL3, GLM, SDL_mixer) se descargan solas.</p></li>
+            <li><span class="steps__num">2</span><p>Diseña tu nivel en Tiled y cárgalo con una línea, con sus capas y colisiones.</p></li>
+            <li><span class="steps__num">3</span><p>Compila y ejecuta en Linux o Windows con el mismo código.</p></li>
+          </ol>
+        </div>
+
+        <div class="code reveal">
+          <div class="code__bar">
+            <span class="code__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code__file">main.cpp</span>
+            <button class="code__copy" type="button" aria-label="Copiar código">Copiar</button>
+          </div>
+<pre class="code__body"><code id="code-sample"><span class="c">// Ejemplo ilustrativo</span>
+<span class="k">#include</span> <span class="s">"Engine.h"</span>
+
+ENG::EngineConfig cfg(<span class="s">"eng.json"</span>);
+ENG::Engine engine(cfg);
+
+<span class="k">auto</span> layers = ENG::TileMap::LoadTiledMap(<span class="s">"maps/cave.json"</span>);
+engine.Run();</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Planes ===== -->
+    <section class="section section--alt" id="planes">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Planes</p>
+          <h2 class="section__title">Gratis para aprender. Accesible para publicar.</h2>
+          <p class="section__lead">Suscripción mensual, cancela cuando quieras. Precios de lanzamiento en pesos mexicanos.</p>
+        </header>
+
+        <div class="plans">
+          <article class="card plan reveal">
+            <h3 class="plan__name">Estudiante</h3>
+            <p class="plan__desc">Para aprender y prototipar.</p>
+            <p class="plan__price"><strong>$0</strong> <span>MXN / mes</span></p>
+            <ul class="plan__list">
+              <li>Motor completo y ejemplos</li>
+              <li>Proyectos no comerciales</li>
+              <li>Requiere correo institucional</li>
+              <li>Soporte por la comunidad</li>
+            </ul>
+            <a href="#cta" class="btn btn--ghost btn--block" data-plan="Estudiante">Empezar gratis</a>
+          </article>
+
+          <article class="card plan plan--featured reveal">
+            <span class="plan__tag">Más popular</span>
+            <h3 class="plan__name">Indie</h3>
+            <p class="plan__desc">Para desarrolladores que publican.</p>
+            <p class="plan__price"><strong>$149</strong> <span>MXN / mes</span></p>
+            <ul class="plan__list">
+              <li>Licencia para uso comercial</li>
+              <li>Actualizaciones continuas del motor</li>
+              <li>Formatos binarios de assets (.saak, .fak, .sak, .mak)</li>
+              <li>Soporte por correo</li>
+            </ul>
+            <a href="#cta" class="btn btn--primary btn--block" data-plan="Indie">Suscribirme</a>
+          </article>
+
+          <article class="card plan reveal">
+            <h3 class="plan__name">Estudio</h3>
+            <p class="plan__desc">Para equipos de hasta 5 personas.</p>
+            <p class="plan__price"><strong>$449</strong> <span>MXN / mes</span></p>
+            <ul class="plan__list">
+              <li>Todo lo de Indie</li>
+              <li>5 licencias de equipo</li>
+              <li>Acceso anticipado a funciones nuevas</li>
+              <li>Soporte prioritario</li>
+              <li>Modificación del código base</li>
+            </ul>
+            <a href="#cta" class="btn btn--ghost btn--block" data-plan="Estudio">Contactar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Roadmap ===== -->
+    <section class="section" id="roadmap">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Roadmap</p>
+          <h2 class="section__title">Lo que viene</h2>
+        </header>
+
+        <div class="roadmap">
+          <article class="card road reveal">
+            <span class="road__tag">Próximamente</span>
+            <h3>Sistema de partículas</h3>
+            <p>Emisores ligeros sobre el mismo render por lotes.</p>
+          </article>
+          <article class="card road reveal">
+            <span class="road__tag">Próximamente</span>
+            <h3>Física con Box2D v3</h3>
+            <p>Cuerpos rígidos y colisiones avanzadas.</p>
+          </article>
+          <article class="card road reveal">
+            <span class="road__tag">Próximamente</span>
+            <h3>Herramientas de depuración</h3>
+            <p>Paneles en tiempo real con Dear ImGui.</p>
+          </article>
+          <article class="card road reveal">
+            <span class="road__tag">Próximamente</span>
+            <h3>Diálogos localizados</h3>
+            <p>Textos por idioma desde un archivo CSV.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Llamado a la acción ===== -->
+    <section class="section section--cta" id="cta">
+      <div class="container">
+        <div class="cta reveal">
+          <div>
+            <h2 class="cta__title">Empieza hoy con el plan Estudiante.</h2>
+            <p class="cta__text">Sin tarjeta. Cambia a Indie cuando estés listo para publicar.</p>
+          </div>
+          <a href="#planes" class="btn btn--primary">Crear cuenta gratis</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Pie de página ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#inicio" class="logo logo--sm" aria-label="Project AK, inicio">
+          <span>PROJECT</span>
+          <span>AK</span>
+        </a>
+        <p>Desarrollado por Club TECLA · Tijuana, B.C.</p>
+      </div>
+      <nav class="footer__social" aria-label="Redes sociales">
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">Facebook</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">X</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
