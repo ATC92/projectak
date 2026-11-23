@@ -138,13 +138,26 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2600);
 }
 
-/* ---------- Copiar el código de ejemplo ---------- */
+/* ---------- Pestañas y copiado del código de ejemplo ---------- */
+const codeTabs = [...document.querySelectorAll(".code__tab")];
+const codePanels = [...document.querySelectorAll(".code__body[data-panel]")];
+codeTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    codeTabs.forEach(t => {
+      const active = t === tab;
+      t.classList.toggle("is-active", active);
+      t.setAttribute("aria-selected", String(active));
+    });
+    codePanels.forEach(p => (p.hidden = p.dataset.panel !== tab.dataset.sample));
+  });
+});
+
 const copyBtn = document.querySelector(".code__copy");
-const codeSample = document.getElementById("code-sample");
-if (copyBtn && codeSample) {
+if (copyBtn) {
   copyBtn.addEventListener("click", async () => {
+    const visible = codePanels.find(p => !p.hidden);
     try {
-      await navigator.clipboard.writeText(codeSample.innerText);
+      await navigator.clipboard.writeText(visible ? visible.innerText : "");
       copyBtn.textContent = "¡Copiado!";
       showToast("Código copiado al portapapeles");
     } catch {
@@ -154,13 +167,136 @@ if (copyBtn && codeSample) {
   });
 }
 
-/* ---------- Selección de plan ---------- */
+/* ---------- Menú móvil ---------- */
+const menuBtn = document.querySelector(".menu-toggle");
+const nav = document.getElementById("nav");
+if (menuBtn && nav) {
+  const setMenu = open => {
+    nav.classList.toggle("is-open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+  };
+  menuBtn.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
+}
+
+/* ---------- Precio mensual / anual ---------- */
+document.querySelectorAll("[data-billing]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const yearly = btn.dataset.billing === "anual";
+    document.querySelectorAll("[data-billing]").forEach(b => {
+      const active = b === btn;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-pressed", String(active));
+    });
+    document.querySelectorAll("[data-monthly]").forEach(node => {
+      node.textContent = yearly ? node.dataset.yearly : node.dataset.monthly;
+    });
+  });
+});
+
+/* ---------- Elegir plan: llena el formulario de registro ---------- */
+const perfilSelect = document.getElementById("perfil");
 document.querySelectorAll("[data-plan]").forEach(btn => {
   btn.addEventListener("click", () => {
     const plan = btn.dataset.plan;
-    const msg = plan === "Estudio"
-      ? "Plan Estudio: te contactaremos para tu equipo."
-      : `Elegiste el plan ${plan}.`;
-    showToast(msg);
+    if (perfilSelect) perfilSelect.value = plan;
+    showToast(plan === "Institución educativa"
+      ? "Completa el registro como institución educativa."
+      : `Elegiste el plan ${plan}. Completa tu registro.`);
   });
 });
+
+/* ---------- Formulario de registro ----------
+   GitHub Pages no procesa formularios. Para recibir los registros, crea un
+   formulario gratuito (por ejemplo en Formspree o Google Forms) y pega su
+   URL de envío en FORM_ENDPOINT. Mientras esté vacío, el formulario solo
+   valida los datos y muestra la confirmación. */
+const FORM_ENDPOINT = "";
+
+const form = document.getElementById("signup");
+const formMsg = document.getElementById("signup-msg");
+if (form) {
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    formMsg.className = "signup__msg";
+    let firstBad = null;
+    form.querySelectorAll("input[required]").forEach(input => {
+      const ok = input.type === "checkbox" ? input.checked : input.checkValidity() && input.value.trim() !== "";
+      input.setAttribute("aria-invalid", String(!ok));
+      if (!ok && !firstBad) firstBad = input;
+    });
+    if (firstBad) {
+      formMsg.textContent = firstBad.type === "checkbox"
+        ? "Acepta recibir correos para enviarte la descarga."
+        : "Revisa tu nombre y correo.";
+      formMsg.classList.add("is-error");
+      firstBad.focus();
+      return;
+    }
+    const data = Object.fromEntries(new FormData(form));
+    try {
+      if (FORM_ENDPOINT) {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+        if (!res.ok) throw new Error(res.statusText);
+      }
+      formMsg.textContent = `¡Listo, ${data.nombre.split(" ")[0]}! Te enviaremos la Beta a ${data.correo}.`;
+      formMsg.classList.add("is-ok");
+      form.reset();
+    } catch {
+      formMsg.textContent = "No pudimos enviar tu registro. Intenta de nuevo en unos minutos.";
+      formMsg.classList.add("is-error");
+    }
+  });
+}
+
+/* ---------- Ilustración de la cueva (sección "Hecho con Project AK") ---------- */
+(function buildCave() {
+  const g = document.getElementById("cave-floor");
+  if (!g) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const HW = 22, HH = 11, CX = 200, TOP = 34, N = 9;
+  const P = (a, b, z = 0) => [CX + (a - b) * HW, TOP + (a + b) * HH - z];
+  const pts = (...l) => l.map(p => p.join(",")).join(" ");
+  const add = (tag, attrs) => {
+    const n = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    g.appendChild(n);
+    return n;
+  };
+  // Piso con variación de tono, como un tileset de roca
+  const tones = ["#141921", "#171d26", "#12161d"];
+  for (let a = 0; a < N; a++) for (let b = 0; b < N; b++) {
+    add("polygon", { points: pts(P(a, b), P(a + 1, b), P(a + 1, b + 1), P(a, b + 1)),
+      fill: tones[(a * 7 + b * 3) % 3], stroke: "#222a35", "stroke-width": 0.8 });
+  }
+  // Paredes de roca en el borde trasero
+  const wall = (a, b, h, side) => {
+    const [l, r] = side === "x" ? [P(a, b), P(a + 1, b)] : [P(a, b), P(a, b + 1)];
+    add("polygon", { points: pts(l, r, [r[0], r[1] - h], [l[0], l[1] - h]),
+      fill: side === "x" ? "#262e3a" : "#1e2530", stroke: "#2f3a48", "stroke-width": 0.8 });
+  };
+  for (let a = 0; a < N; a++) wall(a, 0, 26 + ((a * 5) % 3) * 6, "x");
+  for (let b = 0; b < N; b++) wall(0, b, 26 + ((b * 7) % 3) * 6, "y");
+  // Rocas
+  [[3, 5, 12], [6, 2, 16], [7, 6, 10]].forEach(([a, b, h]) => {
+    add("polygon", { points: pts(P(a, b + 1), P(a + 1, b + 1), P(a + 1, b + 1, h), P(a, b + 1, h)), fill: "#2a323e" });
+    add("polygon", { points: pts(P(a + 1, b), P(a + 1, b + 1), P(a + 1, b + 1, h), P(a + 1, b, h)), fill: "#212833" });
+    add("polygon", { points: pts(P(a, b, h), P(a + 1, b, h), P(a + 1, b + 1, h), P(a, b + 1, h)), fill: "#3a4452" });
+  });
+  // Antorcha
+  const [tx, ty] = P(5.5, 4.5);
+  add("rect", { x: tx - 1.5, y: ty - 22, width: 3, height: 22, fill: "#5b4a33" });
+  add("circle", { cx: tx, cy: ty - 25, r: 4, fill: "#f5a623" });
+  add("circle", { cx: tx, cy: ty - 26, r: 2, fill: "#ffe2a6" });
+  // Personaje
+  const [hx, hy] = P(4.5, 6.5);
+  add("ellipse", { cx: hx, cy: hy, rx: 8, ry: 4, fill: "rgba(0,0,0,.45)" });
+  add("rect", { x: hx - 5, y: hy - 20, width: 10, height: 16, rx: 3, fill: "#5fb8d4" });
+  add("circle", { cx: hx, cy: hy - 25, r: 5, fill: "#e8ebf0" });
+})();

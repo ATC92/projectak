@@ -4,13 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project AK · Motor 2D en C++20</title>
-  <meta name="description" content="Project AK es un motor gráfico 2D ligero, escrito desde cero en C++ sobre OpenGL 4.6 y SDL3.">
+  <meta name="description" content="Project AK es un motor gráfico 2D ligero, escrito desde cero en C++ sobre OpenGL 4.6 y SDL3. Gratis para estudiantes y escuelas.">
+  <meta name="theme-color" content="#0b0e14">
+
+  <!-- Vista previa al compartir en redes (Open Graph / X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Project AK · Motor 2D en C++20">
+  <meta property="og:description" content="Un motor 2D que entiendes por dentro. Gratis para estudiantes, escuelas y universidades.">
+  <meta property="og:url" content="https://atc92.github.io/projectak/">
+  <meta property="og:image" content="https://atc92.github.io/projectak/img/og-image.png">
+  <meta property="og:locale" content="es_MX">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@projectakengine">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e14'/%3E%3Cpath d='M16 6 28 12 16 18 4 12Z' fill='%23f5a623'/%3E%3Cpath d='M4 17 16 23 28 17' fill='none' stroke='%235fb8d4' stroke-width='2'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <a class="skip-link" href="#main">Saltar al contenido</a>
 
   <!-- ===== Encabezado ===== -->
   <header class="header" id="header">
@@ -19,22 +34,27 @@
         <span>PROJECT</span>
         <span>AK</span>
       </a>
-      <nav class="nav" aria-label="Principal">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav" aria-label="Principal">
         <a href="#caracteristicas" class="nav__link">Características</a>
         <a href="#demo" class="nav__link">Demo</a>
+        <a href="#caso" class="nav__link">Hecho con AK</a>
         <a href="#planes" class="nav__link">Planes</a>
-        <a href="#roadmap" class="nav__link">Roadmap</a>
+        <a href="#instituciones" class="nav__link">Escuelas</a>
+        <a href="#faq" class="nav__link">Preguntas</a>
+        <a href="#registro" class="btn btn--primary btn--sm header__cta">Empieza gratis</a>
       </nav>
-      <a href="#planes" class="btn btn--primary btn--sm header__cta">Empieza gratis</a>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <!-- ===== Hero ===== -->
     <section class="hero" id="inicio">
       <div class="container hero__grid">
         <div class="hero__text reveal">
-          <span class="badge">v1 · Motor 2D en C++20</span>
+          <span class="badge">Beta pública · Motor 2D en C++20</span>
           <h1 class="hero__title">Tu juego 2D, sobre un motor que entiendes por dentro.</h1>
           <p class="hero__lead">
             Project AK es un motor gráfico 2D ligero, escrito desde cero en C++ sobre
@@ -42,10 +62,10 @@
             y guardado de partidas listos para usar en Linux y Windows.
           </p>
           <div class="hero__actions">
-            <a href="#planes" class="btn btn--primary">Ver planes</a>
+            <a href="#registro" class="btn btn--primary">Descarga la Beta gratis</a>
             <a href="#demo" class="btn btn--ghost">Ver demo</a>
           </div>
-          <ul class="tech">
+          <ul class="tech" aria-label="Tecnologías">
             <li>C++20</li>
             <li>OpenGL 4.6 Core</li>
             <li>SDL3</li>
@@ -53,16 +73,27 @@
             <li>Linux</li>
             <li>Windows</li>
           </ul>
+          <p class="hero__trust">Gratis para estudiantes, escuelas y universidades · Hecho por Club TECLA (UABC)</p>
         </div>
 
         <figure class="viewport reveal">
           <svg id="iso-map" class="viewport__svg" viewBox="0 0 400 200" role="img"
-               aria-label="Mapa isométrico con la región visible de la cámara marcada"></svg>
+               aria-label="Mapa isométrico animado: un jugador se mueve y la cámara lo sigue, dibujando solo lo visible"></svg>
           <figcaption class="viewport__caption">
             <span>TileMap · Isometric · 32×16</span>
-            <span>Importado desde Tiled</span>
+            <span>La cámara sigue al jugador y solo dibuja lo visible</span>
           </figcaption>
         </figure>
+      </div>
+    </section>
+
+    <!-- ===== Cifras rápidas ===== -->
+    <section class="stats" aria-label="Project AK en cifras">
+      <div class="container stats__grid">
+        <div class="stat reveal"><strong>2</strong><span>sistemas operativos: Linux y Windows</span></div>
+        <div class="stat reveal"><strong>3</strong><span>compiladores probados en CI: GCC, Clang y MSVC</span></div>
+        <div class="stat reveal"><strong>6</strong><span>sistemas listos: render, mapas, audio, escenas, guardado y CI</span></div>
+        <div class="stat reveal"><strong>$0</strong><span>para aprender, en clase o en tu proyecto personal</span></div>
       </div>
     </section>
 
@@ -79,32 +110,38 @@
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             <h3>Render por lotes</h3>
-            <p>Sprite batching sobre arreglos de texturas (GL_TEXTURE_2D_ARRAY): agrupa sprites, atlas y animaciones en pocas llamadas de dibujo, compatible con OpenGL 4.6.</p>
+            <p>Sprite batching sobre arreglos de texturas (GL_TEXTURE_2D_ARRAY): agrupa sprites, atlas y animaciones en pocas llamadas de dibujo.</p>
+            <p class="feature__benefit">Tu juego dibuja miles de sprites sin saturar la GPU.</p>
           </article>
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
             <h3>Mapas de Tiled</h3>
-            <p>Importa mapas JSON de Tiled por capas, en vista ortogonal o isométrica. Solo se dibujan las celdas que ve la cámara, y la capa de colisión funciona desde el primer día.</p>
+            <p>Importa mapas JSON de Tiled por capas, en vista ortogonal o isométrica, con capa de colisión.</p>
+            <p class="feature__benefit">Diseñas niveles en una herramienta gratuita y los cargas con una línea.</p>
           </article>
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
             <h3>Audio listo</h3>
-            <p>Integración con SDL_mixer 3: un pool dinámico de efectos de sonido que reutiliza voces cuando se llena, y un gestor de música aparte.</p>
+            <p>Integración con SDL_mixer 3: pool dinámico de efectos que reutiliza voces cuando se llena, y un gestor de música aparte.</p>
+            <p class="feature__benefit">Los efectos no se cortan ni saturan el sistema.</p>
           </article>
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="m10 8 5 3-5 3V8Z"/><path d="M8 21h8"/></svg>
             <h3>Escenas y objetos</h3>
-            <p>Gestor de escenas con cambio diferido, cámara 2D por escena y un pool de objetos con IDs generacionales para crear y destruir entidades sin fugas.</p>
+            <p>Gestor de escenas con cambio diferido, cámara 2D por escena y pool de objetos con IDs generacionales.</p>
+            <p class="feature__benefit">Creas y destruyes entidades sin fugas de memoria.</p>
           </article>
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
             <h3>Guardado versionado</h3>
-            <p>Partidas por slots con archivos binarios .dak separados (mapa, jugador…). Cada archivo trae su versión y migra solo de v0 a v1 a v2 cuando actualizas tu juego.</p>
+            <p>Partidas por slots con archivos binarios .dak separados. Cada archivo trae su versión y migra solo de v0 a v1 a v2.</p>
+            <p class="feature__benefit">Las partidas de tus jugadores sobreviven a cada actualización.</p>
           </article>
           <article class="card feature reveal">
             <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/><path d="m14.5 4-5 16"/></svg>
             <h3>Multiplataforma</h3>
-            <p>C++20, CMake y SDL3. Se compila en Linux y Windows, y cada cambio se prueba en CI con GCC, Clang y MSVC.</p>
+            <p>C++20, CMake y SDL3. Cada cambio se prueba en CI con GCC, Clang y MSVC.</p>
+            <p class="feature__benefit">El mismo código compila en Linux y Windows.</p>
           </article>
         </div>
       </div>
@@ -126,10 +163,13 @@
         <div class="code reveal">
           <div class="code__bar">
             <span class="code__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="code__file">main.cpp</span>
+            <div class="code__tabs" role="tablist" aria-label="Ejemplos de código">
+              <button class="code__tab is-active" type="button" role="tab" aria-selected="true" data-sample="main">main.cpp</button>
+              <button class="code__tab" type="button" role="tab" aria-selected="false" data-sample="cmake">CMakeLists.txt</button>
+            </div>
             <button class="code__copy" type="button" aria-label="Copiar código">Copiar</button>
           </div>
-<pre class="code__body"><code id="code-sample"><span class="c">// Ejemplo ilustrativo</span>
+<pre class="code__body" data-panel="main"><code><span class="c">// Ejemplo ilustrativo</span>
 <span class="k">#include</span> <span class="s">"Engine.h"</span>
 
 ENG::EngineConfig cfg(<span class="s">"eng.json"</span>);
@@ -137,51 +177,106 @@ ENG::Engine engine(cfg);
 
 <span class="k">auto</span> layers = ENG::TileMap::LoadTiledMap(<span class="s">"maps/cave.json"</span>);
 engine.Run();</code></pre>
+<pre class="code__body" data-panel="cmake" hidden><code><span class="c"># Ejemplo ilustrativo</span>
+cmake_minimum_required(VERSION 3.24)
+project(MiJuego CXX)
+set(CMAKE_CXX_STANDARD 20)
+
+add_subdirectory(ProjectAK)   <span class="c"># descarga SDL3, GLM y SDL_mixer</span>
+add_executable(MiJuego main.cpp)
+target_link_libraries(MiJuego PRIVATE ProjectAK)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Caso: Ashes of the Past ===== -->
+    <section class="section section--alt" id="caso">
+      <div class="container case">
+        <figure class="case__media reveal">
+          <!-- Ilustración del estilo del juego. Cuando haya capturas reales,
+               reemplazar este SVG por: <img src="img/ashes-captura.png" alt="..."> -->
+          <svg viewBox="0 0 400 240" role="img" aria-label="Ilustración de una cueva isométrica con un personaje y una antorcha">
+            <defs>
+              <radialGradient id="torch" cx="0.62" cy="0.52" r="0.5">
+                <stop offset="0" stop-color="#f5a623" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#f5a623" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="400" height="240" fill="#0a0d12"/>
+            <g id="cave-floor"></g>
+            <rect width="400" height="240" fill="url(#torch)"/>
+          </svg>
+          <figcaption>Ilustración del estilo de <em>Ashes of the Past</em> (juego en desarrollo).</figcaption>
+        </figure>
+        <div class="case__text reveal">
+          <p class="eyebrow">Hecho con Project AK</p>
+          <h2 class="section__title">Ashes of the Past</h2>
+          <p class="section__lead">Un juego isométrico que Club TECLA desarrolla con Project AK. Cada función del motor se prueba primero en este juego antes de llegar a tu proyecto.</p>
+          <ul class="case__list">
+            <li><strong>Mapa isométrico de cueva</strong> importado desde Tiled, con capa de colisión.</li>
+            <li><strong>Culling por cámara:</strong> solo se dibujan las celdas visibles.</li>
+            <li><strong>Animaciones del jugador</strong> en 8 direcciones desde un solo atlas.</li>
+            <li><strong>Audio</strong> con efectos y música separados.</li>
+          </ul>
+          <a href="https://www.instagram.com/projectakengine/" class="btn btn--ghost" target="_blank" rel="noopener">Sigue el desarrollo en Instagram</a>
         </div>
       </div>
     </section>
 
     <!-- ===== Planes ===== -->
-    <section class="section section--alt" id="planes">
+    <section class="section" id="planes">
       <div class="container">
-        <header class="section__head reveal">
-          <p class="eyebrow">Planes</p>
-          <h2 class="section__title">Gratis para aprender. Accesible para publicar.</h2>
-          <p class="section__lead">Suscripción mensual, cancela cuando quieras. Precios de lanzamiento en pesos mexicanos.</p>
+        <header class="section__head section__head--row reveal">
+          <div>
+            <p class="eyebrow">Planes</p>
+            <h2 class="section__title">Gratis para aprender. Accesible para publicar.</h2>
+            <p class="section__lead">Sin regalías, cancela cuando quieras. Precios de lanzamiento en pesos mexicanos.</p>
+          </div>
+          <div class="billing" role="group" aria-label="Periodo de pago">
+            <button type="button" class="billing__opt is-active" data-billing="mensual" aria-pressed="true">Mensual</button>
+            <button type="button" class="billing__opt" data-billing="anual" aria-pressed="false">Anual <em>2 meses gratis</em></button>
+          </div>
         </header>
 
         <div class="plans">
           <article class="card plan reveal">
             <h3 class="plan__name">Estudiante</h3>
-            <p class="plan__desc">Para aprender y prototipar.</p>
-            <p class="plan__price"><strong>$0</strong> <span>MXN / mes</span></p>
+            <p class="plan__desc">Para aprender, en clase o por tu cuenta.</p>
+            <p class="plan__price"><strong>$0</strong> <span>MXN, siempre</span></p>
             <ul class="plan__list">
               <li>Motor completo y ejemplos</li>
               <li>Proyectos no comerciales</li>
-              <li>Requiere correo institucional</li>
+              <li>Con correo institucional</li>
+              <li>Gratis también para escuelas y universidades</li>
               <li>Soporte por la comunidad</li>
             </ul>
-            <a href="#cta" class="btn btn--ghost btn--block" data-plan="Estudiante">Empezar gratis</a>
+            <a href="#registro" class="btn btn--ghost btn--block" data-plan="Estudiante">Empezar gratis</a>
           </article>
 
           <article class="card plan plan--featured reveal">
             <span class="plan__tag">Más popular</span>
             <h3 class="plan__name">Indie</h3>
             <p class="plan__desc">Para desarrolladores que publican.</p>
-            <p class="plan__price"><strong>$149</strong> <span>MXN / mes</span></p>
+            <p class="plan__price">
+              <strong data-monthly="$149" data-yearly="$1,490">$149</strong>
+              <span data-monthly="MXN / mes" data-yearly="MXN / año">MXN / mes</span>
+            </p>
             <ul class="plan__list">
               <li>Licencia para uso comercial</li>
               <li>Actualizaciones continuas del motor</li>
               <li>Formatos binarios de assets (.saak, .fak, .sak, .mak)</li>
               <li>Soporte por correo</li>
             </ul>
-            <a href="#cta" class="btn btn--primary btn--block" data-plan="Indie">Suscribirme</a>
+            <a href="#registro" class="btn btn--primary btn--block" data-plan="Indie">Suscribirme</a>
           </article>
 
           <article class="card plan reveal">
             <h3 class="plan__name">Estudio</h3>
             <p class="plan__desc">Para equipos de hasta 5 personas.</p>
-            <p class="plan__price"><strong>$449</strong> <span>MXN / mes</span></p>
+            <p class="plan__price">
+              <strong data-monthly="$449" data-yearly="$4,490">$449</strong>
+              <span data-monthly="MXN / mes" data-yearly="MXN / año">MXN / mes</span>
+            </p>
             <ul class="plan__list">
               <li>Todo lo de Indie</li>
               <li>5 licencias de equipo</li>
@@ -189,8 +284,66 @@ engine.Run();</code></pre>
               <li>Soporte prioritario</li>
               <li>Modificación del código base</li>
             </ul>
-            <a href="#cta" class="btn btn--ghost btn--block" data-plan="Estudio">Contactar</a>
+            <a href="#registro" class="btn btn--ghost btn--block" data-plan="Estudio">Contactar</a>
           </article>
+        </div>
+
+        <details class="compare reveal">
+          <summary>Comparar planes a detalle</summary>
+          <div class="compare__wrap">
+            <table class="compare__table">
+              <thead>
+                <tr><th scope="col">Incluye</th><th scope="col">Estudiante</th><th scope="col">Indie</th><th scope="col">Estudio</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Motor completo y ejemplos</th><td>✓</td><td>✓</td><td>✓</td></tr>
+                <tr><th scope="row">Vender tu juego</th><td>—</td><td>✓</td><td>✓</td></tr>
+                <tr><th scope="row">Formatos binarios de assets</th><td>—</td><td>✓</td><td>✓</td></tr>
+                <tr><th scope="row">Licencias incluidas</th><td>1</td><td>1</td><td>5</td></tr>
+                <tr><th scope="row">Acceso anticipado</th><td>—</td><td>—</td><td>✓</td></tr>
+                <tr><th scope="row">Modificar el código base</th><td>—</td><td>—</td><td>✓</td></tr>
+                <tr><th scope="row">Soporte</th><td>Comunidad</td><td>Correo</td><td>Prioritario</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== Instituciones educativas (respuesta a la retroalimentación) ===== -->
+    <section class="section section--alt" id="instituciones">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow">Escuelas y universidades</p>
+          <h2 class="section__title">Project AK es gratis para tu institución.</h2>
+          <p class="section__lead">Escuelas, universidades y clubes de programación usan el plan Estudiante sin costo, para todo el grupo.</p>
+        </header>
+
+        <div class="edu">
+          <div class="edu__cards">
+            <article class="card edu__card reveal">
+              <h3>Licencias para todo el grupo</h3>
+              <p>Cada alumno activa el plan Estudiante con su correo institucional. Sin límite de alumnos.</p>
+            </article>
+            <article class="card edu__card reveal">
+              <h3>Material para clase</h3>
+              <p>Proyectos de ejemplo y guías paso a paso para enseñar render, mapas y arquitectura de motores.</p>
+            </article>
+            <article class="card edu__card reveal">
+              <h3>Talleres y game jams</h3>
+              <p>Club TECLA puede dar un taller introductorio o apoyar una game jam en tu escuela.</p>
+            </article>
+          </div>
+
+          <div class="card edu__steps reveal">
+            <h3>Cómo solicitarlo</h3>
+            <ol class="steps">
+              <li><span class="steps__num">1</span><p>El profesor o coordinador llena el formulario de registro como «Institución educativa».</p></li>
+              <li><span class="steps__num">2</span><p>Verificamos el dominio del correo institucional.</p></li>
+              <li><span class="steps__num">3</span><p>Los alumnos activan su plan Estudiante gratis.</p></li>
+            </ol>
+            <a href="#registro" class="btn btn--primary btn--block" data-plan="Institución educativa">Solicitar acceso para mi institución</a>
+          </div>
         </div>
       </div>
     </section>
@@ -205,7 +358,7 @@ engine.Run();</code></pre>
 
         <div class="roadmap">
           <article class="card road reveal">
-            <span class="road__tag">Próximamente</span>
+            <span class="road__tag road__tag--now">En desarrollo</span>
             <h3>Sistema de partículas</h3>
             <p>Emisores ligeros sobre el mismo render por lotes.</p>
           </article>
@@ -228,15 +381,80 @@ engine.Run();</code></pre>
       </div>
     </section>
 
-    <!-- ===== Llamado a la acción ===== -->
-    <section class="section section--cta" id="cta">
+    <!-- ===== Preguntas frecuentes ===== -->
+    <section class="section section--alt" id="faq">
+      <div class="container faq">
+        <header class="section__head reveal">
+          <p class="eyebrow">Preguntas frecuentes</p>
+          <h2 class="section__title">Lo que más nos preguntan</h2>
+        </header>
+        <div class="faq__list reveal">
+          <details class="faq__item">
+            <summary>¿Mi escuela o universidad puede usar Project AK gratis?</summary>
+            <p>Sí. Las instituciones educativas usan el plan Estudiante sin costo. El profesor se registra como «Institución educativa» y los alumnos lo activan con su correo institucional.</p>
+          </details>
+          <details class="faq__item">
+            <summary>¿Puedo vender un juego hecho con el plan Estudiante?</summary>
+            <p>No. El plan Estudiante es para aprender y para proyectos no comerciales. Para vender tu juego cambia al plan Indie; tu proyecto sigue igual.</p>
+          </details>
+          <details class="faq__item">
+            <summary>¿Cobran regalías por mis ventas?</summary>
+            <p>No. Pagas solo la suscripción de tu plan, sin importar cuánto venda tu juego.</p>
+          </details>
+          <details class="faq__item">
+            <summary>¿Qué necesito saber para usarlo?</summary>
+            <p>Conocimientos básicos de C++ y CMake. Los ejemplos y la guía de inicio te llevan de cero a tu primer mapa.</p>
+          </details>
+          <details class="faq__item">
+            <summary>¿En qué plataformas funciona?</summary>
+            <p>Por ahora en Linux y Windows. Cada cambio se prueba en ambos sistemas con GCC, Clang y MSVC.</p>
+          </details>
+          <details class="faq__item">
+            <summary>¿Puedo cancelar cuando quiera?</summary>
+            <p>Sí. La suscripción mensual se cancela en cualquier momento, sin penalización.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Registro ===== -->
+    <section class="section section--cta" id="registro">
       <div class="container">
         <div class="cta reveal">
-          <div>
-            <h2 class="cta__title">Empieza hoy con el plan Estudiante.</h2>
-            <p class="cta__text">Sin tarjeta. Cambia a Indie cuando estés listo para publicar.</p>
+          <div class="cta__copy">
+            <h2 class="cta__title">Empieza hoy con la Beta gratuita.</h2>
+            <p class="cta__text">Déjanos tu correo y te enviamos la descarga, la guía de inicio y un proyecto de ejemplo. Sin tarjeta.</p>
+            <ul class="cta__perks">
+              <li>Descarga de la Beta</li>
+              <li>Proyecto de ejemplo isométrico</li>
+              <li>Novedades una vez al mes</li>
+            </ul>
           </div>
-          <a href="#planes" class="btn btn--primary">Crear cuenta gratis</a>
+          <form class="signup" id="signup" novalidate>
+            <label class="field">
+              <span>Nombre</span>
+              <input type="text" name="nombre" autocomplete="name" required>
+            </label>
+            <label class="field">
+              <span>Correo</span>
+              <input type="email" name="correo" autocomplete="email" required>
+            </label>
+            <label class="field">
+              <span>Me interesa</span>
+              <select name="perfil" id="perfil">
+                <option>Estudiante</option>
+                <option>Indie</option>
+                <option>Estudio</option>
+                <option>Institución educativa</option>
+              </select>
+            </label>
+            <label class="check">
+              <input type="checkbox" name="acepto" required>
+              <span>Acepto recibir correos de Project AK. Puedo darme de baja cuando quiera.</span>
+            </label>
+            <button class="btn btn--primary btn--block" type="submit">Quiero la Beta</button>
+            <p class="signup__msg" id="signup-msg" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </section>
@@ -253,10 +471,9 @@ engine.Run();</code></pre>
         <p>Desarrollado por Club TECLA · Tijuana, B.C.</p>
       </div>
       <nav class="footer__social" aria-label="Redes sociales">
-        <a href="#" target="_blank" rel="noopener">Instagram</a>
-        <a href="#" target="_blank" rel="noopener">Facebook</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="#" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/projectakengine/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/projectakengine" target="_blank" rel="noopener">X</a>
+        <a href="https://forms.gle/4mMZLT87MRFW8h8MA" target="_blank" rel="noopener">Danos tu opinión</a>
       </nav>
     </div>
   </footer>
