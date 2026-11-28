@@ -213,7 +213,7 @@ document.querySelectorAll("[data-plan]").forEach(btn => {
    formulario gratuito (por ejemplo en Formspree o Google Forms) y pega su
    URL de envío en FORM_ENDPOINT. Mientras esté vacío, el formulario solo
    valida los datos y muestra la confirmación. */
-const FORM_ENDPOINT = "";
+const FORM_ENDPOINT = "https://formspree.io/f/mdegvezo";
 
 const form = document.getElementById("signup");
 const formMsg = document.getElementById("signup-msg");
